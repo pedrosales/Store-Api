@@ -44,7 +44,7 @@ namespace Store.Domain.StoreContext.Handlers
             AddNotifications(customer.Notifications);
 
             if(Invalid)
-                return null;
+                new CommandResult(false, "Por favor, corrija os campos abaixo", Notifications);
 
             // Persistir o cliente
             _customerRepository.Save(customer);
@@ -53,7 +53,7 @@ namespace Store.Domain.StoreContext.Handlers
             _emailService.Send(email.Address, "pedroivossantos@gmail.com", "Bem vindo", "Seja bem vindo ao Store");
 
             // Retornar o resultado para tela
-            return new CreateCustomerCommandResult(customer.Id, name.ToString(), email.Address);
+            return new CommandResult(true, "Bem vindo ao store", new { Id = customer.Id, Name = name.ToString(), Email = email.Address });
         }
 
         public ICommandResult Handle(AddAddressCommand command)

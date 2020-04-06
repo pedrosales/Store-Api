@@ -18,6 +18,8 @@ namespace Store.Api
         {
             services.AddMvc();
 
+            services.AddResponseCompression();
+
             services.AddScoped<StoreDataContext, StoreDataContext>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IEmailService, EmailService>();
@@ -31,7 +33,8 @@ namespace Store.Api
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UseMvc();
+            app.UseMvc();   
+            app.UseResponseCompression();
         }
     }
 }

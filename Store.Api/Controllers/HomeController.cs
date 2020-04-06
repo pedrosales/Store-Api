@@ -6,9 +6,9 @@ namespace Store.Api.Controllers
     {
         [HttpGet]
         [Route("")]
-        public string Get()
+        public object Get()
         {
-            return "Hello World";
+            return new { version = "Version 0.0.1" };
         }
     }
 }

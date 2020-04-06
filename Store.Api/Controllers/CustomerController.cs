@@ -6,6 +6,7 @@ using Store.Domain.StoreContext.CustomerCommands.Outputs;
 using Store.Domain.StoreContext.Handlers;
 using Store.Domain.StoreContext.Queries;
 using Store.Domain.StoreContext.Repositories;
+using Store.Shared.Commands;
 
 namespace Store.Api.Controllers
 {
@@ -20,14 +21,16 @@ namespace Store.Api.Controllers
         }
 
         [HttpGet]
-        [Route("customers")]
+        [Route("v1/customers")]
+        // [ResponseCache(Location = ResponseCacheLocation.Client, Duration = 60)]
+        // Cache-Control: public,max-age=60
         public IEnumerable<ListCustomerQueryResult> Get()
         {
             return _repository.Get();
         }
 
         [HttpGet]
-        [Route("customers/{id}")]
+        [Route("v1/customers/{id}")]
         // customers/id Guid
         public GetCustomerQueryResult GetById(Guid id)
         {
@@ -35,20 +38,25 @@ namespace Store.Api.Controllers
         }
 
         [HttpGet]
-        [Route("customers/{id}/orders")]
+        [Route("v2/customers/{document}")]
+        // customers/id Guid
+        public GetCustomerQueryResult GetByDocument(Guid document)
+        {
+            return _repository.Get(document);
+        }
+
+        [HttpGet]
+        [Route("v1/customers/{id}/orders")]
         public IEnumerable<ListCustomerOrdersQueryResult> GetOrders(Guid id)
         {
             return _repository.GetOrders(id);
         }
 
         [HttpPost]
-        [Route("customers")]
-        public object Post([FromBody]CreateCustomerCommand command)
+        [Route("v1/customers")]
+        public ICommandResult Post([FromBody]CreateCustomerCommand command)
         {
             var result = (CreateCustomerCommandResult) _handler.Handle(command);
-            if(_handler.Invalid)
-                return BadRequest(_handler.Notifications);
-
             return result;
         }
     }
