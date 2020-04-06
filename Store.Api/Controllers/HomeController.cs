@@ -10,5 +10,13 @@ namespace Store.Api.Controllers
         {
             return new { version = "Version 0.0.1" };
         }
+
+        [HttpGet]
+        [Route("error")]
+        public string Error()
+        {
+            throw new System.Exception("Teste Elmah");
+            return "erro";
+        }
     }
 }
