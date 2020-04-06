@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Dapper;
@@ -31,11 +33,29 @@ namespace Store.Infra.StoreContext.Repositories
                     .FirstOrDefault();
         }
 
+        public IEnumerable<ListCustomerQueryResult> Get()
+        {
+            return _context.Connection.Query<ListCustomerQueryResult>(
+                    "SELECT [Id], CONCAT([FirstName], ' ', [LastName]) AS Name, [Document], [Email] FROM [Customer]", new {});
+        }
+
+        public GetCustomerQueryResult Get(Guid id)
+        {
+            return _context.Connection.Query<GetCustomerQueryResult>(
+                    "SELECT [Id], CONCAT([FirstName], ' ', [LastName]) AS Name, [Document], [Email] FROM [Customer] WHERE [Id] = @Id", new { Id = id }).FirstOrDefault();
+        }
+
         public CustomerOrdersCountResult GetCustomerOrdersCount(string document)
         {
             return _context.Connection.Query<CustomerOrdersCountResult>("spGetCustomerOrdersCount",
                     new { Document = document }, commandType: CommandType.StoredProcedure)
                     .FirstOrDefault();
+        }
+
+        public IEnumerable<ListCustomerOrdersQueryResult> GetOrders(Guid id)
+        {
+            return _context.Connection.Query<ListCustomerOrdersQueryResult>(
+                    @"", new { id = id});
         }
 
         public void Save(Customer customer)
