@@ -16,7 +16,6 @@ namespace Store.Api.Controllers
         public string Error()
         {
             throw new System.Exception("Teste Elmah");
-            return "erro";
         }
     }
 }
