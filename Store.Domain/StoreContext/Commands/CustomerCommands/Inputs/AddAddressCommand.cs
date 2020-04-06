@@ -1,10 +1,11 @@
 using System;
+using FluentValidator;
 using Store.Domain.StoreContext.Enums;
 using Store.Shared.Commands;
 
 namespace Store.Domain.StoreContext.CustomerCommands.Inputs
 {
-    public class AddAddressCommand : ICommand
+    public class AddAddressCommand : Notifiable, ICommand
     {
         public Guid Id { get; set; }
         public string Street { get; set; }
@@ -19,7 +20,7 @@ namespace Store.Domain.StoreContext.CustomerCommands.Inputs
 
         public bool Valid()
         {
-            throw new NotImplementedException();
+            return IsValid;
         }
     }
 }

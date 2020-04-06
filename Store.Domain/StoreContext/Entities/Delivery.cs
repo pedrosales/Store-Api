@@ -1,9 +1,10 @@
 using Store.Domain.StoreContext.Enums;
+using Store.Shared.Entities;
 using System;
 
 namespace Store.Domain.StoreContext.Entities
 {
-    public class Delivery
+    public class Delivery : Entity
     {
         public Delivery(DateTime estimatedDeliveryDate)
         {
@@ -18,13 +19,13 @@ namespace Store.Domain.StoreContext.Entities
 
         public void Ship()
         {
-            // Se a Data estimada de entrega for no passado, não entregar
+            // Se a Data estimada de entrega for no passado, nï¿½o entregar
             Status = EDeliveryStatus.Shipped;
         }
 
         public void Cancel()
         {
-            // Se o status já estiver entregue, não pode cancelar
+            // Se o status jï¿½ estiver entregue, nï¿½o pode cancelar
             Status = EDeliveryStatus.Canceled;
         }
     }

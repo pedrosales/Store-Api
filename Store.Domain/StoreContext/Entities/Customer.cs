@@ -1,11 +1,11 @@
-using FluentValidator;
 using Store.Domain.StoreContext.ValueObjects;
+using Store.Shared.Entities;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Store.Domain.StoreContext.Entities
 {
-    public class Customer : Notifiable
+    public class Customer : Entity
     {
         private readonly IList<Address> _addresses;
 
@@ -27,9 +27,9 @@ namespace Store.Domain.StoreContext.Entities
 
         public void AddAddress(Address address)
         {
-            // Validar endereço
+            // Validar endereï¿½o
 
-            // Adicionar o endereço
+            // Adicionar o endereï¿½o
             _addresses.Add(address);
         }
 
