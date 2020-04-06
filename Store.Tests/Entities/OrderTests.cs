@@ -104,24 +104,23 @@ namespace Store.Tests
         [TestMethod]
         public void Should_Cancel_Shippings_When_Order_Canceled()
         {
-           _order.AddItem(_mouse, 1);
-           _order.AddItem(_mouse, 1);
-           _order.AddItem(_mouse, 1);
-           _order.AddItem(_mouse, 1);
-           _order.AddItem(_mouse, 1);
-           _order.AddItem(_mouse, 1);
-           _order.AddItem(_mouse, 1);
-           _order.AddItem(_mouse, 1);
-           _order.AddItem(_mouse, 1);
-           _order.AddItem(_mouse, 1);
-           _order.Ship();
+            _order.AddItem(_mouse, 1);
+            _order.AddItem(_mouse, 1);
+            _order.AddItem(_mouse, 1);
+            _order.AddItem(_mouse, 1);
+            _order.AddItem(_mouse, 1);
+            _order.AddItem(_mouse, 1);
+            _order.AddItem(_mouse, 1);
+            _order.AddItem(_mouse, 1);
+            _order.AddItem(_mouse, 1);
+            _order.AddItem(_mouse, 1);
+            _order.Ship();
             _order.Cancel();
             foreach (var x in _order.Deliveries)
             {
                 Assert.AreEqual(EDeliveryStatus.Canceled, x.Status);
             }
-           Assert.AreEqual(2, _order.Deliveries.Count);
+            Assert.AreEqual(2, _order.Deliveries.Count);
         }
-
     }
 }
